@@ -19,6 +19,7 @@ import de.hardcode.jxinput.test.ButtonListener;
 public class Main {
 
     public static JXInputDevice getGuitarHeroController() {
+        System.out.println(JXInputManager.getNumberOfDevices());
         for (int i = 0; i != JXInputManager.getNumberOfDevices(); ++i) {
             JXInputDevice device = JXInputManager.getJXInputDevice(i);
             if (device.getName().equals("Guitar Hero3 for PlayStation (R) 3")) {
