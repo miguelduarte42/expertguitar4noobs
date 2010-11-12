@@ -11,12 +11,7 @@ package expertguitar4noobs;
  */
 public class Helper {
 
-    public static int getNote(int string, int fret) {
-
-        int[] initial_notes = {40,45,50,55,59,64};
-
-        return initial_notes[string]+fret;
-    }
+    
 
     public static void main(String[] args) {
         playSmokeOnTheWater();
@@ -24,6 +19,7 @@ public class Helper {
 
     public static void playOpenNotes() {
 
+        /*
         MidiPlayer midi = new MidiPlayer();
 
         try{
@@ -35,12 +31,12 @@ public class Helper {
             }
         }catch(Exception e) {
             //Buh!
-        }
+        }*/
     }
 
     public static void playSmokeOnTheWater(){
 
-        MidiPlayer midi = new MidiPlayer();
+        /*MidiPlayer midi = new MidiPlayer();
 
         try{
             //D
@@ -105,7 +101,7 @@ public class Helper {
 
         }catch(Exception e) {
             //Buh!
-        }
+        }*/
     }
 
 }

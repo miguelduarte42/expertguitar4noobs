@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Preset {
 
-    private String name;
+/*    private String name;
     private ArrayList<ButtonChord> button_chords;
 
     public Preset(String name) {
@@ -34,7 +34,7 @@ public class Preset {
 
     public void removeButtonChord(ButtonChord bc){
         button_chords.remove(bc);
-    }
+    }*/
 
 
 
