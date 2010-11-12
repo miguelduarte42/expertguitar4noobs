@@ -19,7 +19,7 @@ public class Helper {
     }
 
     public static void main(String[] args) {
-        playOpenNotes();
+        playSmokeOnTheWater();
     }
 
     public static void playOpenNotes() {
@@ -77,6 +77,31 @@ public class Helper {
             midi.startNote(55);
             Thread.sleep(1000);
             midi.stopNote(55);
+
+             //D
+            midi.startNote(50);
+            Thread.sleep(500);
+            midi.stopNote(50);
+
+            //F
+            midi.startNote(53);
+            Thread.sleep(500);
+            midi.stopNote(53);
+
+            //G
+            midi.startNote(55);
+            Thread.sleep(800);
+            midi.stopNote(55);
+
+            //F
+            midi.startNote(53);
+            Thread.sleep(500);
+            midi.stopNote(53);
+
+            //D
+            midi.startNote(50);
+            Thread.sleep(500);
+            midi.stopNote(50);
 
         }catch(Exception e) {
             //Buh!
