@@ -1,9 +1,12 @@
 package expertguitar4noobs;
 
+import de.hardcode.jxinput.Axis;
 import de.hardcode.jxinput.JXInputDevice;
 import de.hardcode.jxinput.JXInputManager;
 import de.hardcode.jxinput.event.JXInputEventManager;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Guitar {
 
@@ -15,8 +18,9 @@ public class Guitar {
     private Hashtable<Keys, Tab> mappings;
     private GuitarNoteHandler noteHandler;
     private GuitarHatHandler hatHandler;
+    private GuitarDistorsionHandler distorsionHandler;
     private Tab lastTab = null;
-    private boolean isPlaying = false;
+    //private boolean isPlaying = false;
 
     @SuppressWarnings("UseOfObsoleteCollectionType")
     public Guitar() throws Exception {
@@ -49,6 +53,7 @@ public class Guitar {
         this.pressedKeys = new Keys(new boolean[]{false, false, false, false, false});
         this.noteHandler = new GuitarNoteHandler(this);
         this.hatHandler = new GuitarHatHandler(this);
+        this.distorsionHandler = new GuitarDistorsionHandler(this);
         this.mappings = new Hashtable<Keys, Tab>();
 
         System.out.println("Device Buttons");
@@ -62,7 +67,15 @@ public class Guitar {
             JXInputEventManager.addListener(hatHandler, device.getDirectional(i));
         }
 
-        JXInputEventManager.setTriggerIntervall(10);
+        for (int i = 0; i != device.getMaxNumberOfAxes(); ++i) {
+            Axis a = device.getAxis(i);
+            if(a != null) {
+                System.out.println(a.getName());
+                JXInputEventManager.addListener(distorsionHandler, a);
+            }
+        }
+
+        JXInputEventManager.setTriggerIntervall(1);
     }
 
     public Keys getPressedKeys() {
@@ -79,31 +92,25 @@ public class Guitar {
 
     void shut() {
         if (lastTab != null) {
-            lastTab.shut();
+            lastTab.shut(false);
             //try { Thread.sleep(300); } catch(Exception ex) {}
-            isPlaying = false;
+//            isPlaying = false;
         }
     }
 
     void playTab() {
         Tab newTab = mappings.get(pressedKeys);
-        if(newTab == null) {
+        if (newTab == null) {
             return;
         }
-        if (newTab.equals(lastTab)) {
-            lastTab.shut();
-            try { Thread.sleep(50); } catch(Exception ex) {}
-            lastTab.play();
-        } else {
-            if (!isPlaying) {
-                lastTab = newTab;
-
-                if (lastTab != null) {
-                    isPlaying = true;
-                    lastTab.play();
-                }
+        if (lastTab != null) {
+            if(lastTab != newTab) {
+                lastTab.shut(true);
+                //try { Thread.sleep(1000); } catch (Exception ex) {}
             }
         }
+        newTab.play();
+        lastTab = newTab;
     }
 
     public void mapKeys(Keys keys, Tab tab) {
@@ -112,5 +119,9 @@ public class Guitar {
 
     public void unmapKeys(Keys keys) {
         mappings.remove(keys);
+    }
+
+    void setDistorsion(double val) {
+        lastTab.setDistorsion(val);
     }
 }

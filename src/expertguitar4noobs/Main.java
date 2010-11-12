@@ -18,20 +18,21 @@ public class Main {
     static Tab Fm = new Tab(1, 3, 3, 1, 1, 1, true);
     static Tab Gm = new Tab(3, 5, 5, 3, 3, 3, true);
 
-    static Tab Power1 = new Tab(3, 5, -1, -1, -1, -1, false);
-    static Tab Power2 = new Tab(6, 8, -1, -1, -1, -1, false);
-    static Tab Power3 = new Tab(8, 10, -1, -1, -1, -1, false);
-    static Tab Power4 = new Tab(9, 11, -1, -1, -1, -1, false);
+    static Tab Power1 = new Tab(3, 5, -1, -1, -1, -1, true);
+    static Tab Power2 = new Tab(6, 8, -1, -1, -1, -1, true);
+    static Tab Power3 = new Tab(8, 10, -1, -1, -1, -1, true);
+    static Tab Power4 = new Tab(9, 11, -1, -1, -1, -1, true);
 
 
     public static void main(String[] args) throws InterruptedException, Exception {
        
         Guitar guitar = new Guitar();
 
-        guitar.mapKeys(new Keys(new boolean[] {true, false, false, false, false}), FM);
-        guitar.mapKeys(new Keys(new boolean[] {false, true, false, false, false}), GM);
-        guitar.mapKeys(new Keys(new boolean[] {false, false, true, false, false}), Em);
-        guitar.mapKeys(new Keys(new boolean[] {false, false, false, true, false}), Am);
+        guitar.mapKeys(new Keys(new boolean[] {true, false, false, false, false}), Power1);
+        guitar.mapKeys(new Keys(new boolean[] {false, true, false, false, false}), Power2);
+        guitar.mapKeys(new Keys(new boolean[] {false, false, true, false, false}), Power3);
+        guitar.mapKeys(new Keys(new boolean[] {false, false, false, true, false}), Power4);
+
         //guitar.mapKeys(new Keys(new boolean[] {false, true, false, false, false}), Bchord);
         //guitar.mapKeys(new Keys(new boolean[] {false, false, true, false, false}), Cchord);
 

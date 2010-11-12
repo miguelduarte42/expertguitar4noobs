@@ -24,10 +24,16 @@ public class Tab {
     }
 
     public void play() {
+        System.out.println(frets[0] + " " + frets[1] + " " + frets[2] + " " + frets[3] + " " + frets[4] + " " + frets[5]);
         new StartNoteThread(this).start();
     }
 
-    public void shut() {
-        new EndNoteThread(this).start();
+    public void shut(boolean quick) {
+        new StopNoteThread(this, quick).start();
+    }
+
+    void setDistorsion(double val) {
+        int dist = (int)((16383-8192) * val) + 8192;
+        MidiPlayer.getInstance().changePitch(dist);
     }
 }
