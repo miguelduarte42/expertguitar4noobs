@@ -69,7 +69,7 @@ public class Guitar {
 
         for (int i = 0; i != device.getMaxNumberOfAxes(); ++i) {
             Axis a = device.getAxis(i);
-            if(a != null) {
+            if (a != null) {
                 System.out.println(a.getName());
                 JXInputEventManager.addListener(distorsionHandler, a);
             }
@@ -104,7 +104,7 @@ public class Guitar {
             return;
         }
         if (lastTab != null) {
-            if(lastTab != newTab) {
+            if (lastTab != newTab) {
                 lastTab.shut(true);
                 //try { Thread.sleep(1000); } catch (Exception ex) {}
             }
@@ -114,7 +114,9 @@ public class Guitar {
     }
 
     public void mapKeys(Keys keys, Tab tab) {
-        mappings.put(keys, tab);
+        if (keys.hasChecked()) {
+            mappings.put(keys, tab);
+        }
     }
 
     public void unmapKeys(Keys keys) {

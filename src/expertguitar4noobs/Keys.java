@@ -30,4 +30,13 @@ public class Keys {
         hash = 97 * hash + Arrays.hashCode(this.checked);
         return hash;
     }
+
+    boolean hasChecked() {
+        for(int i = 0; i != checked.length; ++i) {
+            if(checked[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

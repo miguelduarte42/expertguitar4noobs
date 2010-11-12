@@ -24,7 +24,7 @@ public class Main {
     static Tab Power4 = new Tab(9, 11, -1, -1, -1, -1, true);
 
 
-    public static void main(String[] args) throws InterruptedException, Exception {
+    /*public static void main(String[] args) throws InterruptedException, Exception {
        
         Guitar guitar = new Guitar();
 
@@ -42,8 +42,8 @@ public class Main {
 
         tab.play();
         Thread.sleep(2000);
-        tab.shut();*/
+        tab.shut();
         
         Thread.sleep(100000000);
-    }
+    }*/
 }
