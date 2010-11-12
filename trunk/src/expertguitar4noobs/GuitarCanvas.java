@@ -6,13 +6,16 @@ package expertguitar4noobs;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -29,9 +32,13 @@ public class GuitarCanvas extends Canvas {
     private BufferedImage gh3_image;
     private Coord[][] notas;
     private Coord[] botoes;
+    Graphics bufferGraphics;
+    Image offscreen;
+    Dimension dim;
 
     public GuitarCanvas() {
         this.setSize(WIDTH, HEIGHT);
+         dim = getSize(); 
 
         try {
             guitar_image = ImageIO.read(new File(GUITAR_IMAGE_FILE));
@@ -44,6 +51,9 @@ public class GuitarCanvas extends Canvas {
         initializeCoords();
 
         addMouseListener(new CanvasMouseListener(notas, botoes, this));
+
+        offscreen = new BufferedImage(dim.width,dim.height, BufferedImage.TYPE_INT_ARGB);
+        bufferGraphics = offscreen.getGraphics();
 
         repaint();
     }
@@ -68,7 +78,12 @@ public class GuitarCanvas extends Canvas {
                 }
 
                 notas[i][j] = new Coord(cx, cy);
+
+                if (j == 0) {
+                    notas[i][j].setVisible(true);
+                }
             }
+
         }
 
         x = 310;
@@ -82,31 +97,37 @@ public class GuitarCanvas extends Canvas {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(guitar_image, 0, 0, this);
-        g.drawImage(gh3_image, 0, this.HEIGHT / 2, this);
+        bufferGraphics.drawImage(guitar_image, 0, 0, this);
+        bufferGraphics.drawImage(gh3_image, 0, this.HEIGHT / 2, this);
 
-        g.setColor(Color.WHITE);
+        bufferGraphics.setColor(Color.WHITE);
 
         for (int j = notas[1].length - 1; j >= 0; j--) {
             for (int i = 0; i < notas.length; i++) {
                 Coord c = notas[i][j];
                 if (c.visible) {
-                    g.fillOval(c.x, c.y, RADIUS, RADIUS);
+                    bufferGraphics.fillOval(c.x, c.y, RADIUS, RADIUS);
                 } else {
-                    g.drawOval(c.x, c.y, RADIUS, RADIUS);
-                    g.setColor(Color.BLACK);
-                    g.fillOval(c.x, c.y, RADIUS, RADIUS);
-                    g.setColor(Color.WHITE);
+                    bufferGraphics.drawOval(c.x, c.y, RADIUS, RADIUS);
+                    bufferGraphics.setColor(Color.BLACK);
+                    bufferGraphics.fillOval(c.x, c.y, RADIUS, RADIUS);
+                    bufferGraphics.setColor(Color.WHITE);
                 }
             }
         }
 
-        g.setColor(Color.RED);
+        bufferGraphics.setColor(Color.RED);
 
         for (Coord c : botoes) {
-            if(c.visible)
-                g.fillRect(c.x, c.y, 20, 30);
+            /*if (c.visible) {
+                bufferGraphics.fillRect(c.x, c.y, 20, 30);
+            }*/
+            if(c.visible) {
+                //bufferGraphics.drawImage(new ImageIcon("green button.jpg").getImage(), c.x, c.y, this);
+            }
         }
+
+        g.drawImage(offscreen,0,0,this); 
     }
 
     public void setInvisible() {
@@ -116,8 +137,9 @@ public class GuitarCanvas extends Canvas {
             }
         }
 
-        for (Coord c : botoes)
+        for (Coord c : botoes) {
             c.setVisible(false);
+        }
     }
 
     public int[] getActiveNotes() {
@@ -135,11 +157,12 @@ public class GuitarCanvas extends Canvas {
         return strings;
     }
 
-    public boolean[] getActiveButtons(){
+    public boolean[] getActiveButtons() {
         boolean[] ret_botoes = new boolean[5];
-        
-        for(int i = 0 ; i < botoes.length ; i++)
+
+        for (int i = 0; i < botoes.length; i++) {
             ret_botoes[i] = botoes[i].visible;
+        }
 
         return ret_botoes;
     }
@@ -183,10 +206,11 @@ public class GuitarCanvas extends Canvas {
                 }
             }
 
-            for(Coord c : botoes){
-                 Rectangle rect = new Rectangle(c.x, c.y, 20, 30);
-                 if (rect.intersects(mx, my, 3, 3))
+            for (Coord c : botoes) {
+                Rectangle rect = new Rectangle(c.x, c.y, 20, 30);
+                if (rect.intersects(mx, my, 3, 3)) {
                     c.visible = !c.visible;
+                }
             }
             canvas.repaint();
         }

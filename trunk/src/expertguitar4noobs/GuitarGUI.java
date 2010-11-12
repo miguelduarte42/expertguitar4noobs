@@ -8,12 +8,17 @@ package expertguitar4noobs;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.sound.midi.*;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -26,7 +31,8 @@ public class GuitarGUI extends JFrame {
     private Guitar guitar;
     private GuitarCanvas canvas;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         new GuitarGUI().setVisible(true);
     }
 
@@ -36,7 +42,7 @@ public class GuitarGUI extends JFrame {
             this.player = MidiPlayer.getInstance();
             this.guitar = new Guitar();
             this.guitars = player.getGuitars();
-
+            
 
             this.setLayout(new BorderLayout());
 
@@ -55,6 +61,7 @@ public class GuitarGUI extends JFrame {
 
             this.pack();
             this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+            this.setResizable(false);
         } catch (Exception e ){
             e.printStackTrace();
         }
@@ -66,8 +73,14 @@ public class GuitarGUI extends JFrame {
         panel.setBorder(new TitledBorder("Escolher Guitarra"));
 
         JComboBox guitar_list = new JComboBox(guitars);
-        panel.add(guitar_list);
+        guitar_list.addActionListener(new ActionListener() {
 
+            public void actionPerformed(ActionEvent e) {
+                JComboBox cb = (JComboBox) e.getSource();
+                MidiPlayer.getInstance().changeGuitar((Instrument) cb.getSelectedItem());
+            }
+        });
+        panel.add(guitar_list);
         return panel;
     }
 
