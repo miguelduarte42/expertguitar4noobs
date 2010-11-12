@@ -16,7 +16,7 @@ public class StartNoteThread extends Thread {
             if(tab.frets[i] != -1) {
                 mp.startNote(Tab.getNote(i,tab.frets[i]));
                 if(tab.strum) {
-                    try { Thread.sleep(100); } catch(Exception e) {}
+                    try { Thread.sleep(50); } catch(Exception e) {}
                 }
             }
         }

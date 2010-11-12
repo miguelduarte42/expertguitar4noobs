@@ -41,10 +41,8 @@ public final class MidiPlayer {
             
             //Distortion Guitar
             guitars = getAvailableGuitars(synthesizer);
-            changeGuitar(guitars[2]);
+            changeGuitar(guitars[5]);
         } catch (Exception e) {
-            //Bad code is bad. Unhandled Exception never is thrown (I hope)
-            e.printStackTrace();
         }
     }
 

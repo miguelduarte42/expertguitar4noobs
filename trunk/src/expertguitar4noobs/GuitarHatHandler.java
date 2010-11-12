@@ -17,9 +17,6 @@ public class GuitarHatHandler implements JXInputDirectionalEventListener {
             if(delta == 1.0) {
                 guitar.playTab();
             }
-            /*else if(delta == -1.0) {
-                guitar.shut();
-            }*/
         }
     }
 
