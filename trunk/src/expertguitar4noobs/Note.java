@@ -29,7 +29,6 @@ public class Note {
 
     @Override
     public boolean equals(Object obj) {
-
         try{
             Note other_note = (Note)obj;
 
