@@ -11,7 +11,7 @@ import javax.sound.midi.*;
  *
  * @author MiKe
  */
-public class MidiPlayer {
+public final class MidiPlayer {
 
     private static int DEFAULT_NOTE_VELOCITY = 400;
     private MidiChannel channel;
@@ -41,7 +41,7 @@ public class MidiPlayer {
             
             //Distortion Guitar
             guitars = getAvailableGuitars(synthesizer);
-            changeGuitar(guitars[0]);
+            changeGuitar(guitars[2]);
         } catch (Exception e) {
             //Bad code is bad. Unhandled Exception never is thrown (I hope)
             e.printStackTrace();
