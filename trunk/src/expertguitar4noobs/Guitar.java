@@ -3,20 +3,22 @@ package expertguitar4noobs;
 import de.hardcode.jxinput.JXInputDevice;
 import de.hardcode.jxinput.JXInputManager;
 import de.hardcode.jxinput.event.JXInputEventManager;
-import java.util.HashSet;
 import java.util.Hashtable;
 
 public class Guitar {
 
-    private static String[] compatibleDevices = new String[] {
+    private static String[] compatibleDevices = new String[]{
         "Guitar Hero3 for PlayStation (R) 3"
     };
-
     private JXInputDevice device;// = getGuitarHeroController();
-    private boolean[] pressedKeys;
-    private Hashtable<Boolean[], Tab> mappings;
-    private GuitarNoteHandler eventHandler;
+    private Keys pressedKeys;
+    private Hashtable<Keys, Tab> mappings;
+    private GuitarNoteHandler noteHandler;
+    private GuitarHatHandler hatHandler;
+    private Tab lastTab = null;
+    private boolean isPlaying = false;
 
+    @SuppressWarnings("UseOfObsoleteCollectionType")
     public Guitar() throws Exception {
         System.out.println("Device List");
 
@@ -44,33 +46,71 @@ public class Guitar {
             throw new Exception("Guitar device not found!");
         }
 
-        this.pressedKeys = new boolean[5];
-        this.eventHandler = new GuitarNoteHandler(this);
+        this.pressedKeys = new Keys(new boolean[]{false, false, false, false, false});
+        this.noteHandler = new GuitarNoteHandler(this);
+        this.hatHandler = new GuitarHatHandler(this);
+        this.mappings = new Hashtable<Keys, Tab>();
 
         System.out.println("Device Buttons");
         for (int i = 0; i != device.getNumberOfButtons(); ++i) {
             System.out.println(device.getButton(i).getName());
-            JXInputEventManager.addListener(eventHandler, device.getButton(i));
+            JXInputEventManager.addListener(noteHandler, device.getButton(i));
         }
 
-        /*for(int i = 0; i != device.getNumberOfAxes(); ++i) {
-            System.out.println(device.getAxis(i).getName());
-
-            //JXInputEventManager.addListener(eventHandler, device.getDirectional(i)));
-        }*/
+        for (int i = 0; i != device.getNumberOfDirectionals(); ++i) {
+            System.out.println(device.getDirectional(i).getName());
+            JXInputEventManager.addListener(hatHandler, device.getDirectional(i));
+        }
 
         JXInputEventManager.setTriggerIntervall(10);
     }
 
-    public boolean[] getPressedKeys() {
+    public Keys getPressedKeys() {
         return pressedKeys;
     }
 
     public void changeKeyState(int pos) {
-        pressedKeys[pos] = !pressedKeys[pos];
+        pressedKeys.checked[pos] = !pressedKeys.checked[pos];
     }
 
     void setKeyState(int i, boolean state) {
-        pressedKeys[i] = state;
+        pressedKeys.checked[i] = state;
+    }
+
+    void shut() {
+        if (lastTab != null) {
+            lastTab.shut();
+            //try { Thread.sleep(300); } catch(Exception ex) {}
+            isPlaying = false;
+        }
+    }
+
+    void playTab() {
+        Tab newTab = mappings.get(pressedKeys);
+        if(newTab == null) {
+            return;
+        }
+        if (newTab.equals(lastTab)) {
+            lastTab.shut();
+            try { Thread.sleep(50); } catch(Exception ex) {}
+            lastTab.play();
+        } else {
+            if (!isPlaying) {
+                lastTab = newTab;
+
+                if (lastTab != null) {
+                    isPlaying = true;
+                    lastTab.play();
+                }
+            }
+        }
+    }
+
+    public void mapKeys(Keys keys, Tab tab) {
+        mappings.put(keys, tab);
+    }
+
+    public void unmapKeys(Keys keys) {
+        mappings.remove(keys);
     }
 }

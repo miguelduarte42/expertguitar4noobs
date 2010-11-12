@@ -28,6 +28,10 @@ public class GuitarNoteHandler implements JXInputButtonEventListener {
         } else if(buttonName.equals("Button 4")) {
             guitar.setKeyState(4, button.getState());
         }
+
+        if(!button.getState()) {
+            guitar.shut();
+        }
     }
 
 }
