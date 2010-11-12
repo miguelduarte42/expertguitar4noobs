@@ -34,7 +34,7 @@ public class MidiPlayer {
             channel.controlChange(7, (int)(1D * 255.0));
             
             //Distortion Guitar
-            guitars = getGuitars(synthesizer);
+            guitars = getAvailableGuitars(synthesizer);
             changeGuitar(guitars[5]);
         } catch (Exception e) {
             //Bad code is bad. Unhandled Exception never is thrown (I hope)
@@ -64,14 +64,13 @@ public class MidiPlayer {
         return guitars;
     }
 
-    private Instrument[] getGuitars(Synthesizer synthesizer) {
+    private Instrument[] getAvailableGuitars(Synthesizer synthesizer) {
 
         ArrayList<Instrument> guitars_list = new ArrayList<Instrument>();
 
         for (Instrument inst : synthesizer.getAvailableInstruments()) {
             if (inst.getName().toLowerCase().contains("guitar")) {
                 guitars_list.add(inst);
-                System.out.println(inst.getName());
             }
         }
 
