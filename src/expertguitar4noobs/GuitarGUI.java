@@ -26,16 +26,15 @@ public class GuitarGUI extends JFrame {
     private MidiPlayer player;
 
     public static void main(String[] args) {
-        MidiPlayer mp = new MidiPlayer();
-
-        new GuitarGUI(mp.getGuitars(), mp);
+        new GuitarGUI().setVisible(true);
     }
 
-    public GuitarGUI(Instrument[] guitars, MidiPlayer player) {
+    public GuitarGUI() {
         super("expert guitar 4 n00bs");
 
-        this.guitars = guitars;
-        this.player = player;
+        this.player = MidiPlayer.getInstance();
+        this.guitars = player.getGuitars();
+        
         
         this.setLayout(new BorderLayout());
 
@@ -52,7 +51,6 @@ public class GuitarGUI extends JFrame {
 
         this.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(true);
     }
 
     public JPanel createGuitarListPanel(){

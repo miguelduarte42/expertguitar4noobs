@@ -18,11 +18,17 @@ public class MidiPlayer {
     private Synthesizer synthesizer;
     private Instrument[] guitars;
 
-    public static void main(String[] args) throws Exception {
-       
+    private static MidiPlayer instance;
+
+    static {
+        instance = new MidiPlayer();
     }
 
-    public MidiPlayer() {
+    public static MidiPlayer getInstance() {
+        return instance;
+    }
+
+    private MidiPlayer() {
 
         try {
             synthesizer = MidiSystem.getSynthesizer();
@@ -35,7 +41,7 @@ public class MidiPlayer {
             
             //Distortion Guitar
             guitars = getAvailableGuitars(synthesizer);
-            changeGuitar(guitars[5]);
+            changeGuitar(guitars[0]);
         } catch (Exception e) {
             //Bad code is bad. Unhandled Exception never is thrown (I hope)
             e.printStackTrace();
@@ -83,5 +89,10 @@ public class MidiPlayer {
         }
 
         return guitars_array;
+    }
+
+    public void shut() {
+
+        channel.allNotesOff();
     }
 }
