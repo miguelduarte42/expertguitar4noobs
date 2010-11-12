@@ -135,6 +135,15 @@ public class GuitarCanvas extends Canvas {
         return strings;
     }
 
+    public boolean[] getActiveButtons(){
+        boolean[] ret_botoes = new boolean[5];
+        
+        for(int i = 0 ; i < botoes.length ; i++)
+            ret_botoes[i] = botoes[i].visible;
+
+        return ret_botoes;
+    }
+
     private class CanvasMouseListener implements MouseListener {
 
         private Coord[][] notas;

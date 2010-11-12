@@ -6,7 +6,10 @@
 package expertguitar4noobs;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.sound.midi.*;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,6 +23,8 @@ public class GuitarGUI extends JFrame {
     
     private Instrument[] guitars;
     private MidiPlayer player;
+    private Guitar guitar;
+    private GuitarCanvas canvas;
 
     public static void main(String[] args) {
         new GuitarGUI().setVisible(true);
@@ -27,26 +32,32 @@ public class GuitarGUI extends JFrame {
 
     public GuitarGUI() {
         super("expert guitar 4 n00bs");
+        try{
+            this.player = MidiPlayer.getInstance();
+            this.guitar = new Guitar();
+            this.guitars = player.getGuitars();
 
-        this.player = MidiPlayer.getInstance();
-        this.guitars = player.getGuitars();
-        
-        
-        this.setLayout(new BorderLayout());
 
-        JPanel right_panel = new JPanel(new BorderLayout());
+            this.setLayout(new BorderLayout());
 
-        JPanel guitar_list_panel = createGuitarListPanel();
+            JPanel right_panel = new JPanel(new BorderLayout());
 
-        right_panel.add(guitar_list_panel, BorderLayout.NORTH);
+            JPanel guitar_list_panel = createGuitarListPanel();
+            JPanel tab_panel = createTabPanel();
 
-        GuitarCanvas canvas = new GuitarCanvas();
+            right_panel.add(guitar_list_panel, BorderLayout.NORTH);
+            right_panel.add(tab_panel, BorderLayout.CENTER);
 
-        this.add(right_panel,BorderLayout.EAST);
-        this.add(canvas,BorderLayout.WEST);
+            canvas = new GuitarCanvas();
 
-        this.pack();
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+            this.add(right_panel,BorderLayout.EAST);
+            this.add(canvas,BorderLayout.WEST);
+
+            this.pack();
+            this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        } catch (Exception e ){
+            e.printStackTrace();
+        }
     }
 
     public JPanel createGuitarListPanel(){
@@ -58,6 +69,31 @@ public class GuitarGUI extends JFrame {
         panel.add(guitar_list);
 
         return panel;
+    }
+
+    public JPanel createTabPanel(){
+
+        JPanel panel = new JPanel();
+        panel.setBorder(new TitledBorder("Mapear Teclas"));
+
+        JButton add_button = new JButton("Mapear");
+        add_button.addActionListener(new AddButtonListener());
+        
+        panel.add(add_button);
+
+        return panel;
+    }
+
+    private class AddButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+
+            int[] notas = canvas.getActiveNotes();
+            boolean[] buttons = canvas.getActiveButtons();
+
+            Tab tab = new Tab(notas[0], notas[1], notas[2], notas[3], notas[4], notas[5], false);
+            guitar.mapKeys(new Keys(buttons), tab);
+        }
     }
 
 }
