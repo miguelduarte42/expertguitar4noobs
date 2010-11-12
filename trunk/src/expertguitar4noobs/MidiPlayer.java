@@ -19,18 +19,7 @@ public class MidiPlayer {
     private Instrument[] guitars;
 
     public static void main(String[] args) throws Exception {
-        MidiPlayer midi = new MidiPlayer();
-
-        //Play and stop a note
-        midi.startNote(60);
-        Thread.sleep(2000);
-        midi.stopNote(60);
-
-        //Change pitch and try again
-        midi.changePitch(0);
-        midi.startNote(60);
-        Thread.sleep(2000);
-        midi.stopNote(60);
+       
     }
 
     public MidiPlayer() {
@@ -39,12 +28,14 @@ public class MidiPlayer {
             synthesizer = MidiSystem.getSynthesizer();
             synthesizer.open();
 
-            guitars = getGuitars(synthesizer);
+            channel = synthesizer.getChannels()[0];
 
-            channel = synthesizer.getChannels()[5];
+            //Increase the volume. IT'S OVER 9000!
+            channel.controlChange(7, (int)(1D * 255.0));
             
             //Distortion Guitar
-            changeGuitar(guitars[11]);
+            guitars = getGuitars(synthesizer);
+            changeGuitar(guitars[5]);
         } catch (Exception e) {
             //Bad code is bad. Unhandled Exception never is thrown (I hope)
             e.printStackTrace();
