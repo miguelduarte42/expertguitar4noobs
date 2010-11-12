@@ -6,14 +6,10 @@
 package expertguitar4noobs;
 
 import java.awt.BorderLayout;
-import java.awt.Canvas;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import javax.sound.midi.*;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 /**
