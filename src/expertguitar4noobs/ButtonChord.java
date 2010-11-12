@@ -23,4 +23,24 @@ public class ButtonChord {
         notes.remove(note);
     }
 
+    public ArrayList<Note> getNotes() {
+        return notes;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        try{
+            ButtonChord other_bc = (ButtonChord)obj;
+
+           for(Note note : this.notes)
+               if(!other_bc.getNotes().contains(note))
+                   return false;
+
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
 }
