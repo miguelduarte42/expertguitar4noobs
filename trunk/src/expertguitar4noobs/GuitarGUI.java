@@ -6,6 +6,8 @@
 package expertguitar4noobs;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -15,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -40,21 +43,14 @@ public class GuitarGUI extends JFrame {
         super("expert guitar 4 n00bs");
         try{
             this.player = MidiPlayer.getInstance();
-            this.guitar = new Guitar();
+            //this.guitar = new Guitar();
             this.guitars = player.getGuitars();
             
-
             this.setLayout(new BorderLayout());
 
-            JPanel right_panel = new JPanel(new BorderLayout());
+            JPanel right_panel = new OptionsPanel(this);
 
-            JPanel guitar_list_panel = createGuitarListPanel();
-            JPanel tab_panel = createTabPanel();
-
-            right_panel.add(guitar_list_panel, BorderLayout.NORTH);
-            right_panel.add(tab_panel, BorderLayout.CENTER);
-
-            canvas = new GuitarCanvas();
+            canvas = new GuitarCanvas(this);
 
             this.add(right_panel,BorderLayout.EAST);
             this.add(canvas,BorderLayout.WEST);
@@ -84,29 +80,35 @@ public class GuitarGUI extends JFrame {
         return panel;
     }
 
-    public JPanel createTabPanel(){
+ /*  public JPanel createTabPanel(){
 
         JPanel panel = new JPanel();
-        panel.setBorder(new TitledBorder("Mapear Teclas"));
+        panel.setSize(40,100);
+        panel.setBorder(new TitledBorder("Opções"));
+
+        JPanel panel_save = new JPanel();
+
+        JTextField nome_field = new JTextField(20);
+        JButton save_button = new JButton("Guardar Mapeamento");
+
+        panel_save.add(nome_field);
+        panel_save.add(save_button);
 
         JButton add_button = new JButton("Mapear");
         add_button.addActionListener(new AddButtonListener());
-        
+
+        panel.add(panel_save);
         panel.add(add_button);
 
         return panel;
+    }*/
+
+    public Guitar getGuitar(){
+        return guitar;
     }
 
-    private class AddButtonListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
-            int[] notas = canvas.getActiveNotes();
-            boolean[] buttons = canvas.getActiveButtons();
-
-            Tab tab = new Tab(notas[0], notas[1], notas[2], notas[3], notas[4], notas[5], false);
-            guitar.mapKeys(new Keys(buttons), tab);
-        }
+    public GuitarCanvas getCanvas(){
+        return canvas;
     }
 
 }

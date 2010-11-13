@@ -166,4 +166,8 @@ public class Guitar {
     void setName(String name) {
         this.name = name;
     }
+
+    Hashtable<Keys, Tab> getMappings(){
+        return mappings;
+    }
 }

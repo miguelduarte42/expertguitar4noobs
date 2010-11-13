@@ -25,6 +25,10 @@ public class Tab implements Serializable {
         this.strum = strum;
     }
 
+    Tab(int[] activeNotes) {
+        this.frets = activeNotes;
+    }
+
     public void play() {
         System.out.println(frets[0] + " " + frets[1] + " " + frets[2] + " " + frets[3] + " " + frets[4] + " " + frets[5]);
         new StartNoteThread(this).start();
