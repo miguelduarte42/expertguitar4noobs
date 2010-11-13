@@ -18,12 +18,16 @@ public class Main {
     static Tab Fm = new Tab(1, 3, 3, 1, 1, 1, true);
     static Tab Gm = new Tab(3, 5, 5, 3, 3, 3, true);
 
-    static Tab Power1 = new Tab(3, 5, -1, -1, -1, -1, true);
+    // Smoke on the water
+    /*static Tab Power1 = new Tab(3, 5, -1, -1, -1, -1, true);
     static Tab Power2 = new Tab(6, 8, -1, -1, -1, -1, true);
     static Tab Power3 = new Tab(8, 10, -1, -1, -1, -1, true);
     static Tab Power4 = new Tab(9, 11, -1, -1, -1, -1, true);
+    static Tab Power5 = new Tab(-1, -1, -1, -1, -1, -1, true);*/
 
-    /*static Tab Power1 = new Tab(-1, 7, 9, -1, -1, -1, true);
+    // Run to the hills
+    /*
+    static Tab Power1 = new Tab(-1, 7, 9, -1, -1, -1, true);
     static Tab Power2 = new Tab(-1, 5, 7, -1, -1, -1, true);
     static Tab Power3 = new Tab(-1, 3, 5, -1, -1, -1, true);
     static Tab Power4 = new Tab(3, 5, -1, -1, -1, -1, true);
@@ -32,6 +36,13 @@ public class Main {
     static Tab Power7 = new Tab(-1, -1, -1, -1, -1, -1, true);
     static Tab Power8 = new Tab(-1, -1, -1, -1, -1, -1, true);
     static Tab Power9 = new Tab(-1, -1, -1, -1, -1, -1, true);*/
+
+    // Seven nation army
+    static Tab Power1 = new Tab(7, 9, -1, -1, -1, -1, true);
+    static Tab Power2 = new Tab(10, 12, -1, -1, -1, -1, true);
+    static Tab Power3 = new Tab(5, 7, -1, -1, -1, -1, true);
+    static Tab Power4 = new Tab(3, 5, -1, -1, -1, -1, true);
+    static Tab Power5 = new Tab(2, 4, -1, -1, -1, -1, true);
 
 
     static Tab N1 = new Tab(2, 2, 2, -1, -1, -1, true);
@@ -54,23 +65,9 @@ public class Main {
     public static void main(String[] args) throws InterruptedException, Exception {
        
         Guitar guitar = new Guitar();
-
-        guitar.mapKeys(new Keys(new boolean[] {true, false, false, false, false}), Power1);
-        guitar.mapKeys(new Keys(new boolean[] {false, true, false, false, false}), Power2);
-        guitar.mapKeys(new Keys(new boolean[] {false, false, true, false, false}), Power3);
-        guitar.mapKeys(new Keys(new boolean[] {false, false, false, true, false}), Power4);
-        /*guitar.mapKeys(new Keys(new boolean[] {false, false, false, false, true}), N5);
-        guitar.mapKeys(new Keys(new boolean[] {true, true, false, false, false}), N6);
-        guitar.mapKeys(new Keys(new boolean[] {false, true, true, false, false}), N7);
-        guitar.mapKeys(new Keys(new boolean[] {false, false, true, true, false}), N8);
-        guitar.mapKeys(new Keys(new boolean[] {false, false, false, true, true}), N9);
-        guitar.mapKeys(new Keys(new boolean[] {true, false, true, false, false}), N10);
-        guitar.mapKeys(new Keys(new boolean[] {false, true, false, true, false}), N11);
-        guitar.mapKeys(new Keys(new boolean[] {false, false, true, false, true}), N12);
-        guitar.mapKeys(new Keys(new boolean[] {true, false, false, true, false}), N13);
-        guitar.mapKeys(new Keys(new boolean[] {false, true, false, false, true}), N14);
-        guitar.mapKeys(new Keys(new boolean[] {true, true, true, false, true}), N15);*/
-
+        guitar.loadPreset("nation.egn");
+        //guitar.loadPreset("smoke.egn");
+        
         Thread.sleep(100000000);
     }
 }

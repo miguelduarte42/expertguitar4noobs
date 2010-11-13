@@ -14,7 +14,7 @@ public class StopNoteThread extends Thread {
     public void run() {
         MidiPlayer mp = MidiPlayer.getInstance();
         try {
-            Thread.sleep(400);
+            Thread.sleep(50);
         } catch (InterruptedException ex) {
         }
 
