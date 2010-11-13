@@ -1,8 +1,9 @@
 package expertguitar4noobs;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Keys {
+public class Keys implements Serializable {
     protected boolean[] checked;
 
     public Keys(boolean[] checked) {

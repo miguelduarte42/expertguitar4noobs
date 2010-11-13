@@ -1,6 +1,8 @@
 package expertguitar4noobs;
 
-public class Tab {
+import java.io.Serializable;
+
+public class Tab implements Serializable {
 
     final int FRET_NOT_USED = -1;
     protected boolean strum;
