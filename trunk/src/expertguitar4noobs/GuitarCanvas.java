@@ -15,7 +15,6 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -123,7 +122,7 @@ public class GuitarCanvas extends Canvas {
                 bufferGraphics.fillRect(c.x, c.y, 20, 30);
             }*/
             if(c.visible) {
-                //bufferGraphics.drawImage(new ImageIcon("green button.jpg").getImage(), c.x, c.y, this);
+                //bufferGraphics.drawImage(new ImageIcon("green button.jpg"), c.x, c-u, this);
             }
         }
 

@@ -124,6 +124,8 @@ public class Guitar {
     }
 
     void setDistorsion(double val) {
-        lastTab.setDistorsion(val);
+        if(lastTab != null) {
+            lastTab.setDistorsion(val);
+        }
     }
 }

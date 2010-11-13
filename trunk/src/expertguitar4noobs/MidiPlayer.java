@@ -4,6 +4,9 @@
  */
 package expertguitar4noobs;
 
+import com.sun.media.sound.SF2Soundbank;
+import com.sun.media.sound.SoftSynthesizer;
+import java.io.File;
 import java.util.ArrayList;
 import javax.sound.midi.*;
 
@@ -21,7 +24,7 @@ public final class MidiPlayer {
     private static MidiPlayer instance;
 
     static {
-        instance = new MidiPlayer();
+        instance = new MidiPlayer("guitar.sf2");
     }
 
     public static MidiPlayer getInstance() {
@@ -41,7 +44,43 @@ public final class MidiPlayer {
             
             //Distortion Guitar
             guitars = getAvailableGuitars(synthesizer);
+            
             changeGuitar(guitars[5]);
+        } catch (Exception e) {
+        }
+    }
+
+    private MidiPlayer(String path) {
+
+        try {
+            synthesizer = new SoftSynthesizer();
+            synthesizer.open();
+
+            SF2Soundbank sb = new SF2Soundbank(new File(path));
+
+            System.out.println("------------------------");
+            System.out.println(sb.getName());
+            channel = synthesizer.getChannels()[0];
+            synthesizer.loadAllInstruments(sb);
+
+            System.out.println(sb.getName());
+
+            //Increase the volume. IT'S OVER 9000!
+            channel.controlChange(7, (int)(1D * 255.0));
+
+            //Distortion Guitar
+            guitars = synthesizer.getAvailableInstruments();
+
+
+
+            for(int i = 0; i != guitars.length; ++i) {
+                System.out.println(guitars[i].getName());
+            }
+
+
+
+            //changeGuitar(guitars[0]);
+            System.out.println("------------------------");
         } catch (Exception e) {
         }
     }
@@ -73,7 +112,9 @@ public final class MidiPlayer {
         ArrayList<Instrument> guitars_list = new ArrayList<Instrument>();
 
         for (Instrument inst : synthesizer.getAvailableInstruments()) {
-            if (inst.getName().toLowerCase().contains("guitar")) {
+            if (inst.getName().toLowerCase().contains("guitar") 
+                    || inst.getName().toLowerCase().contains("gtr")
+                    || inst.getName().toLowerCase().contains("gt")) {
                 guitars_list.add(inst);
             }
         }

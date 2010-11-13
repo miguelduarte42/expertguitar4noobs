@@ -23,8 +23,35 @@ public class Main {
     static Tab Power3 = new Tab(8, 10, -1, -1, -1, -1, true);
     static Tab Power4 = new Tab(9, 11, -1, -1, -1, -1, true);
 
+    /*static Tab Power1 = new Tab(-1, 7, 9, -1, -1, -1, true);
+    static Tab Power2 = new Tab(-1, 5, 7, -1, -1, -1, true);
+    static Tab Power3 = new Tab(-1, 3, 5, -1, -1, -1, true);
+    static Tab Power4 = new Tab(3, 5, -1, -1, -1, -1, true);
+    static Tab Power5 = new Tab(5, 7, -1, -1, -1, -1, true);
+    static Tab Power6 = new Tab(-1, -1, -1, -1, -1, -1, true);
+    static Tab Power7 = new Tab(-1, -1, -1, -1, -1, -1, true);
+    static Tab Power8 = new Tab(-1, -1, -1, -1, -1, -1, true);
+    static Tab Power9 = new Tab(-1, -1, -1, -1, -1, -1, true);*/
 
-    /*public static void main(String[] args) throws InterruptedException, Exception {
+
+    static Tab N1 = new Tab(2, 2, 2, -1, -1, -1, true);
+    static Tab N2 = new Tab(5, 5, 5, -1, -1, -1, true);
+    static Tab N3 = new Tab(6, 6, 6, -1, -1, -1, true);
+    static Tab N4 = new Tab(7, 7, 7, -1, -1, -1, true);
+    static Tab N5 = new Tab(10, 10, 10, -1, -1, -1, true);
+    static Tab N6 = new Tab(11, 11, 11, -1, -1, -1, true);
+    static Tab N7 = new Tab(12, 12, 12, -1, -1, -1, true);
+    static Tab N8 = new Tab(0, 0, 0, -1, -1, -1, true);
+    static Tab N9 = new Tab(3, 3, 3, -1, -1, -1, true);
+    static Tab N10 = new Tab(5, 5, 5, -1, -1, -1, true);
+    static Tab N11 = new Tab(-1, 2, 4, 4, -1, -1, true);
+    static Tab N12 = new Tab(-1, 3, 5, 5, -1, -1, true);
+    static Tab N13 = new Tab(-1, 1, 2, 3, -1, -1, true);
+    static Tab N14 = new Tab(-1, 2, 4, 4, 0, 0, true);
+    static Tab N15 = new Tab(-1, 2, 4, 4, 4, -1, true);
+
+
+    public static void main(String[] args) throws InterruptedException, Exception {
        
         Guitar guitar = new Guitar();
 
@@ -32,18 +59,18 @@ public class Main {
         guitar.mapKeys(new Keys(new boolean[] {false, true, false, false, false}), Power2);
         guitar.mapKeys(new Keys(new boolean[] {false, false, true, false, false}), Power3);
         guitar.mapKeys(new Keys(new boolean[] {false, false, false, true, false}), Power4);
+        /*guitar.mapKeys(new Keys(new boolean[] {false, false, false, false, true}), N5);
+        guitar.mapKeys(new Keys(new boolean[] {true, true, false, false, false}), N6);
+        guitar.mapKeys(new Keys(new boolean[] {false, true, true, false, false}), N7);
+        guitar.mapKeys(new Keys(new boolean[] {false, false, true, true, false}), N8);
+        guitar.mapKeys(new Keys(new boolean[] {false, false, false, true, true}), N9);
+        guitar.mapKeys(new Keys(new boolean[] {true, false, true, false, false}), N10);
+        guitar.mapKeys(new Keys(new boolean[] {false, true, false, true, false}), N11);
+        guitar.mapKeys(new Keys(new boolean[] {false, false, true, false, true}), N12);
+        guitar.mapKeys(new Keys(new boolean[] {true, false, false, true, false}), N13);
+        guitar.mapKeys(new Keys(new boolean[] {false, true, false, false, true}), N14);
+        guitar.mapKeys(new Keys(new boolean[] {true, true, true, false, true}), N15);*/
 
-        //guitar.mapKeys(new Keys(new boolean[] {false, true, false, false, false}), Bchord);
-        //guitar.mapKeys(new Keys(new boolean[] {false, false, true, false, false}), Cchord);
-
-        /*Tab tab = new Tab(3, 2, 0, 0, 3, 3, true);//.strum();
-
-
-
-        tab.play();
-        Thread.sleep(2000);
-        tab.shut();
-        
         Thread.sleep(100000000);
-    }*/
+    }
 }
