@@ -34,8 +34,10 @@ public class GuitarCanvas extends Canvas {
     Graphics bufferGraphics;
     Image offscreen;
     Dimension dim;
+    GuitarGUI gui;
 
-    public GuitarCanvas() {
+    public GuitarCanvas(GuitarGUI gui) {
+        this.gui = gui;
         this.setSize(WIDTH, HEIGHT);
          dim = getSize(); 
 
@@ -129,15 +131,17 @@ public class GuitarCanvas extends Canvas {
         g.drawImage(offscreen,0,0,this); 
     }
 
-    public void setInvisible() {
+    public void setInvisible(boolean only_notes) {
         for (int i = 0; i < notas.length; i++) {
             for (int j = notas[i].length - 1; j >= 0; j--) {
                 notas[i][j].setVisible(false);
             }
         }
 
-        for (Coord c : botoes) {
-            c.setVisible(false);
+        if(!only_notes){
+            for (Coord c : botoes) {
+                c.setVisible(false);
+            }
         }
     }
 
@@ -193,6 +197,7 @@ public class GuitarCanvas extends Canvas {
                     if (rect.intersects(mx, my, 3, 3)) {
                         c.visible = !c.visible;
                         found = true;
+                        mapKeys();
 
                         //Set everything else on the string invisible
                         for (int x = 0; x < notas[i].length; x++) {
@@ -209,6 +214,7 @@ public class GuitarCanvas extends Canvas {
                 Rectangle rect = new Rectangle(c.x, c.y, 20, 30);
                 if (rect.intersects(mx, my, 3, 3)) {
                     c.visible = !c.visible;
+                    showNotes();
                 }
             }
             canvas.repaint();
@@ -225,6 +231,27 @@ public class GuitarCanvas extends Canvas {
 
         public void mouseExited(MouseEvent e) {
         }
+    }
+
+    private void mapKeys() {
+       Guitar guitar = gui.getGuitar();
+       guitar.mapKeys(new Keys(getActiveButtons()),new Tab(getActiveNotes()));
+    }
+
+    private void showNotes() {
+        Guitar guitar = gui.getGuitar();
+        Tab t = guitar.getMappings().get(getActiveButtons());
+
+        if(t == null)
+            t = new Tab(-1,-1,-1,-1,-1,-1,true);
+
+        setInvisible(true);
+        for(int i = 0 ; i < t.frets.length ; i++){
+            if(t.frets[i] >= 0){
+                notas[i][t.frets[i]].setVisible(true);
+            }
+        }
+
     }
 
     private class Coord {
